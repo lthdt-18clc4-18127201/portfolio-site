@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { AuroraBackground } from "@/components/AuroraBackground";
 
 export const metadata: Metadata = {
   // REPLACE_ME: Update the default SEO title for the site.
@@ -26,6 +27,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
+        <AuroraBackground />
         <div className="flex min-h-screen flex-col">
           <Header />
           <main className="flex-1">{children}</main>

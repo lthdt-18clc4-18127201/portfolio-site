@@ -8,7 +8,7 @@ const navItems = [
 
 export function Header() {
   return (
-    <header className="border-b border-foreground/10">
+    <header>
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5 md:px-8">
         <Link
           href="/"
