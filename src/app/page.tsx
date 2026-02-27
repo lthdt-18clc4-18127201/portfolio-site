@@ -1,131 +1,22 @@
-"use client";
-
-import { useCallback, useMemo } from "react";
-import type { MouseEvent } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { NewsletterForm } from "@/components/NewsletterForm";
+import { HeroParallaxSection } from "@/components/HeroParallaxSection";
 import { ProjectCard } from "@/components/ProjectCard";
-import { StacksMarquee } from "@/components/StacksMarquee";
+import { WorkExperienceSection } from "@/components/WorkExperienceSection";
 import { projects } from "@/lib/projects";
 
-function throttle<A extends unknown[]>(
-  fn: (...args: A) => void,
-  ms: number,
-): (...args: A) => void {
-  let last = 0;
-  let raf: number | null = null;
-  return (...args: A) => {
-    const now = Date.now();
-    const elapsed = now - last;
-    if (elapsed >= ms) {
-      last = now;
-      fn(...args);
-    } else if (!raf) {
-      raf = requestAnimationFrame(() => {
-        raf = null;
-        last = Date.now();
-        fn(...args);
-      });
-    }
-  };
-}
-
-const THROTTLE_MS = 32;
+const StacksMarquee = dynamic(
+  () =>
+    import("@/components/StacksMarquee").then((mod) => ({
+      default: mod.StacksMarquee,
+    })),
+  { ssr: true },
+);
 
 export default function Home() {
-  const applyParallax = useMemo(
-    () =>
-      throttle((container: HTMLElement, clientX: number, clientY: number) => {
-        const rect = container.getBoundingClientRect();
-        const relativeX = (clientX - rect.left) / rect.width - 0.5;
-        const relativeY = (clientY - rect.top) / rect.height - 0.5;
-        const maxOffset = 18;
-        const offsetX = relativeX * maxOffset;
-        const offsetY = relativeY * maxOffset;
-        container.style.setProperty(
-          "--hero-bg-translate",
-          `translate3d(${offsetX}px, ${offsetY}px, 0)`,
-        );
-      }, THROTTLE_MS),
-    [],
-  );
-
-  const handleHeroMouseMove = useCallback(
-    (event: MouseEvent<HTMLDivElement>) => {
-      const container = event.currentTarget;
-      if (container) {
-        applyParallax(container, event.clientX, event.clientY);
-      }
-    },
-    [applyParallax],
-  );
-
-  const handleHeroMouseLeave = useCallback(
-    (event: MouseEvent<HTMLDivElement>) => {
-      const container = event.currentTarget;
-      if (container) {
-        container.style.setProperty(
-          "--hero-bg-translate",
-          "translate3d(0px, 0px, 0)",
-        );
-      }
-    },
-    [],
-  );
-
   return (
     <>
-      <section
-        className="relative overflow-hidden"
-        onMouseMove={handleHeroMouseMove}
-        onMouseLeave={handleHeroMouseLeave}
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            transform: "var(--hero-bg-translate, translate3d(0px, 0px, 0))",
-            transition: "transform 200ms ease-out",
-          }}
-        />
-
-        <div className="relative mx-auto flex max-w-5xl flex-col gap-10 px-6 py-16 md:flex-row md:items-center md:gap-16 md:px-8 md:py-24">
-          <div className="flex-1 space-y-6">
-            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-foreground/60">
-              {/* REPLACE_ME: Update this role line. */}
-              Designer &amp; developer
-            </p>
-            <h1 className="text-5xl leading-tight tracking-[0.12em] sm:text-6xl md:text-7xl">
-              {/* REPLACE_ME: Update hero headline copy. */}
-              Hi, I&apos;m Su Pham.
-            </h1>
-            <p className="max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
-              {/* REPLACE_ME: Update this short description. */}
-              Designer &amp; developer. I make clean, useful web experiences
-              that people remember.
-            </p>
-          </div>
-
-          <div className="w-full max-w-md">
-            <div
-              id="subscribe"
-              className="rounded-3xl border border-foreground/10 bg-background px-5 py-6 shadow-sm"
-            >
-              <h2 className="text-3xl font-display tracking-[0.2em]">
-                Weekly newsletter
-              </h2>
-              <p className="mt-3 text-xs leading-relaxed text-foreground/80">
-                {/* REPLACE_ME: Update newsletter pitch. */}
-                One short email each week with new projects, ideas, and small
-                experiments.
-              </p>
-              <div className="mt-4">
-                <NewsletterForm idSuffix="hero" layout="stacked" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroParallaxSection />
 
       <section>
         <div className="mx-auto max-w-5xl px-6 py-10 md:px-8 md:py-12">
@@ -141,7 +32,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section>
+      <section className="content-visibility-auto">
         <div className="mx-auto max-w-5xl px-6 py-12 md:px-8 md:py-16">
           <div className="relative flex items-baseline justify-center gap-4">
             <h2 className="text-4xl font-display tracking-[0.18em]">
@@ -155,17 +46,21 @@ export default function Home() {
             </Link>
           </div>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.slice(0, 3).map((project) => (
+            {projects.map((project, index) => (
               <ProjectCard
                 key={project.title}
                 title={project.title}
-                summary={project.summary}
+                role={project.role}
+                highlights={project.highlights}
                 imageSrc={project.imageSrc}
+                priority={index === 0}
               />
             ))}
           </div>
         </div>
       </section>
+
+      <WorkExperienceSection />
     </>
   );
 }

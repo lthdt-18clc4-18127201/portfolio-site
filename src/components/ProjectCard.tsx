@@ -1,12 +1,23 @@
 import Image from "next/image";
 
+const PROJECT_CARD_SIZES =
+  "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
+
 type ProjectCardProps = {
   title: string;
-  summary: string;
+  role: string;
+  highlights: string;
   imageSrc?: string;
+  priority?: boolean;
 };
 
-export function ProjectCard({ title, summary, imageSrc }: ProjectCardProps) {
+export function ProjectCard({
+  title,
+  role,
+  highlights,
+  imageSrc,
+  priority = false,
+}: ProjectCardProps) {
   return (
     <article className="group relative flex min-w-0 flex-col justify-between overflow-hidden rounded-2xl border border-foreground/10 bg-background p-6 transition-transform hover:-translate-y-1 hover:border-accent focus-within:border-accent">
       <div className="mb-4 aspect-video w-full shrink-0" aria-hidden="true" />
@@ -17,14 +28,18 @@ export function ProjectCard({ title, summary, imageSrc }: ProjectCardProps) {
       >
         {imageSrc ? (
           <>
-            <Image
-              src={imageSrc}
-              alt=""
-              fill
-              className="rounded-2xl object-cover"
-            />
+            <div className="absolute inset-4 rounded-xl overflow-hidden transition-[top,right,bottom,left] duration-300 ease-out group-hover:inset-0 group-hover:rounded-2xl">
+              <Image
+                src={imageSrc}
+                alt=""
+                fill
+                sizes={PROJECT_CARD_SIZES}
+                priority={priority}
+                className="rounded-xl object-cover"
+              />
+            </div>
             <div
-              className="absolute inset-0 rounded-2xl bg-gradient-to-b from-transparent from-40% via-transparent via-50% to-background to-100%"
+              className="absolute inset-0 rounded-2xl bg-linear-to-b from-transparent from-40% via-transparent via-50% to-background to-100%"
               aria-hidden="true"
             />
             <div
@@ -39,12 +54,15 @@ export function ProjectCard({ title, summary, imageSrc }: ProjectCardProps) {
         )}
       </div>
 
-      <div className="relative z-10 space-y-3">
+      <div className="relative z-10 space-y-2">
         <h3 className="text-xl font-display tracking-[0.16em] text-foreground/90 transition-colors duration-300 group-hover:text-foreground group-hover:drop-shadow-[0_0_8px_rgba(248,250,252,0.5)]">
           {title}
         </h3>
+        <p className="text-sm font-medium text-foreground/90 transition-colors duration-300 group-hover:text-foreground group-hover:drop-shadow-[0_0_6px_rgba(248,250,252,0.4)]">
+          {role}
+        </p>
         <p className="text-sm leading-relaxed text-foreground/80 transition-colors duration-300 group-hover:text-foreground group-hover:drop-shadow-[0_0_6px_rgba(248,250,252,0.4)]">
-          {summary}
+          {highlights}
         </p>
       </div>
 
@@ -59,4 +77,3 @@ export function ProjectCard({ title, summary, imageSrc }: ProjectCardProps) {
     </article>
   );
 }
-

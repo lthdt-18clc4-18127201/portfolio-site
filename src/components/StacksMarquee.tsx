@@ -4,13 +4,38 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const STACKS = [
-  { name: "Next.js (App Router)", icon: "nextdotjs", docs: "https://nextjs.org/docs" },
+  {
+    name: "Next.js (App Router)",
+    icon: "nextdotjs",
+    docs: "https://nextjs.org/docs",
+  },
   { name: "React", icon: "react", docs: "https://react.dev" },
-  { name: "TypeScript", icon: "typescript", docs: "https://www.typescriptlang.org/docs" },
-  { name: "Tailwind CSS v4", icon: "tailwindcss", docs: "https://tailwindcss.com/docs" },
-  { name: "Modern CSS / Animations", icon: "css", docs: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
-  { name: "ESLint & Best Practices", icon: "eslint", docs: "https://eslint.org/docs" },
+  {
+    name: "TypeScript",
+    icon: "typescript",
+    docs: "https://www.typescriptlang.org/docs",
+  },
+  {
+    name: "Tailwind CSS v4",
+    icon: "tailwindcss",
+    docs: "https://tailwindcss.com/docs",
+  },
+  {
+    name: "Modern CSS / Animations",
+    icon: "css",
+    docs: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+  },
+  {
+    name: "ESLint & Best Practices",
+    icon: "eslint",
+    docs: "https://eslint.org/docs",
+  },
   { name: "Vercel", icon: "vercel", docs: "https://vercel.com/docs" },
+  {
+    name: "NodeJS",
+    icon: "nodedotjs",
+    docs: "https://nodejs.org/docs/latest/api/",
+  },
 ] as const;
 
 const ICON_COLOR = "f8fafc";

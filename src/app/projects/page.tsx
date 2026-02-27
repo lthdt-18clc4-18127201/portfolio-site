@@ -35,7 +35,8 @@ export default function ProjectsPage() {
             <ProjectCard
               key={project.title}
               title={project.title}
-              summary={project.summary}
+              role={project.role}
+              highlights={project.highlights}
               imageSrc={project.imageSrc}
             />
           ))}

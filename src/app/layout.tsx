@@ -20,7 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* REPLACE_ME: Adjust fonts or add additional metadata as needed. */}
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         <link
           href="https://api.fontshare.com/v2/css?f[]=nunito@400&f[]=bebas-neue@400&display=swap"
           rel="stylesheet"
