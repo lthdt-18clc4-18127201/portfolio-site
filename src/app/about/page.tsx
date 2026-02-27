@@ -37,7 +37,7 @@ export default function AboutPage() {
       </header>
 
       <section className="mt-10 space-y-4">
-        <h2 className="text-sm font-display tracking-[0.18em]">
+        <h2 className="text-3xl font-display tracking-[0.18em]">
           Highlights
         </h2>
         <ul className="space-y-3 text-sm leading-relaxed text-foreground/80">

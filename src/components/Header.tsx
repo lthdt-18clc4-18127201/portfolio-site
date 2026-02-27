@@ -16,7 +16,7 @@ export function Header() {
           aria-label="Go to home page"
         >
           {/* REPLACE_ME: Update logo text or replace with a real logo. */}
-          Su Pham
+          Su&apos;s Portfolio
         </Link>
 
         <nav aria-label="Main">
@@ -37,4 +37,3 @@ export function Header() {
     </header>
   );
 }
-

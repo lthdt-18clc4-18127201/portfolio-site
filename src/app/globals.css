@@ -18,8 +18,6 @@
   --font-display: "Bebas Neue", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
 
-  /* Aurora scroll offset */
-  --aurora-scroll-y: 0px;
 }
 
 @theme inline {
@@ -58,32 +56,45 @@ main {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(1200px 700px at 55% 10%, color-mix(in oklab, var(--aurora-teal) 72%, transparent), transparent 60%),
-    radial-gradient(900px 500px at 30% 18%, color-mix(in oklab, var(--aurora-green) 52%, transparent), transparent 60%),
-    radial-gradient(1000px 700px at 70% 40%, color-mix(in oklab, var(--aurora-cyan) 48%, transparent), transparent 62%),
-    radial-gradient(1400px 900px at 50% 75%, color-mix(in oklab, var(--aurora-deep) 85%, transparent), transparent 62%),
     linear-gradient(180deg, #020617 0%, var(--background) 55%, #020617 100%);
   filter: saturate(1.2) contrast(1.05);
-  transform: translate3d(0, var(--aurora-scroll-y, 0px), 0);
-  transition: transform 200ms ease-out;
 }
 
 .site-aurora::before {
   content: "";
   position: absolute;
-  inset: -25%;
+  inset: -15%;
   background:
-    radial-gradient(700px 480px at 20% 30%, color-mix(in oklab, var(--aurora-teal) 34%, transparent), transparent 62%),
-    radial-gradient(650px 450px at 75% 25%, color-mix(in oklab, var(--aurora-cyan) 32%, transparent), transparent 62%),
-    radial-gradient(700px 520px at 55% 70%, color-mix(in oklab, var(--aurora-green) 26%, transparent), transparent 62%);
-  opacity: 0.55;
-  filter: blur(22px);
-  animation: aurora-drift 18s ease-in-out infinite alternate;
+    radial-gradient(1200px 700px at 55% 10%, color-mix(in oklab, var(--aurora-teal) 72%, transparent), transparent 60%),
+    radial-gradient(900px 500px at 30% 18%, color-mix(in oklab, var(--aurora-green) 52%, transparent), transparent 60%),
+    radial-gradient(1000px 700px at 70% 40%, color-mix(in oklab, var(--aurora-cyan) 48%, transparent), transparent 62%),
+    radial-gradient(1400px 900px at 50% 75%, color-mix(in oklab, var(--aurora-deep) 85%, transparent), transparent 62%);
+  filter: blur(10px);
   transform: translate3d(0, 0, 0);
+  animation: aurora-flow 28s ease-in-out infinite;
 }
 
 .site-aurora::after {
   content: "";
+  position: absolute;
+  inset: -15%;
+  background:
+    radial-gradient(700px 480px at 20% 30%, color-mix(in oklab, var(--aurora-teal) 34%, transparent), transparent 62%),
+    radial-gradient(650px 450px at 75% 25%, color-mix(in oklab, var(--aurora-cyan) 32%, transparent), transparent 62%),
+    radial-gradient(700px 520px at 55% 70%, color-mix(in oklab, var(--aurora-green) 26%, transparent), transparent 62%);
+  filter: blur(12px);
+  opacity: 0.55;
+  transform: translate3d(0, 0, 0);
+  animation: aurora-flow 34s ease-in-out infinite reverse;
+  animation-delay: -10s;
+}
+
+.site-aurora--paused::before,
+.site-aurora--paused::after {
+  animation-play-state: paused;
+}
+
+.site-aurora .aurora-sparkle {
   position: absolute;
   inset: 0;
   background:
@@ -95,20 +106,26 @@ main {
   pointer-events: none;
 }
 
-@keyframes aurora-drift {
-  from {
-    transform: translate3d(-3%, -2%, 0) rotate(-1.2deg);
+@keyframes aurora-flow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
   }
-  to {
-    transform: translate3d(3%, 2%, 0) rotate(1.2deg);
+  25% {
+    transform: translate3d(3%, 4%, 0);
+  }
+  50% {
+    transform: translate3d(-2%, 2%, 0);
+  }
+  75% {
+    transform: translate3d(4%, -3%, 0);
   }
 }
 
 .glass-panel {
   background: color-mix(in oklab, rgba(255, 255, 255, 0.08) 85%, transparent);
   border: 1px solid color-mix(in oklab, rgba(255, 255, 255, 0.22) 65%, transparent);
-  backdrop-filter: blur(18px) saturate(1.25);
-  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.06) inset,
     0 10px 30px rgba(0, 0, 0, 0.22);
@@ -117,8 +134,8 @@ main {
 .glass-bar {
   background: color-mix(in oklab, rgba(5, 11, 26, 0.62) 80%, transparent);
   border-bottom: 1px solid color-mix(in oklab, rgba(255, 255, 255, 0.16) 60%, transparent);
-  backdrop-filter: blur(14px) saturate(1.1);
-  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
 }
 
 .reveal {
@@ -154,6 +171,10 @@ main {
   animation-play-state: paused;
 }
 
+.marquee--paused .marquee__track {
+  animation-play-state: paused;
+}
+
 @keyframes marquee-left {
   from {
     transform: translate3d(0, 0, 0);
@@ -164,7 +185,8 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-aurora::before {
+  .site-aurora::before,
+  .site-aurora::after {
     animation: none;
   }
 

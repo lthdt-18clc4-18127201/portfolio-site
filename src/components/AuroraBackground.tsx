@@ -1,35 +1,25 @@
- "use client";
+"use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function AuroraBackground() {
+  const [isVisible, setIsVisible] = useState(true);
+
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        return;
-      }
-
-      const maxOffset = 40;
-      const offset = Math.max(
-        Math.min(window.scrollY * 0.05, maxOffset),
-        -maxOffset
-      );
-
-      document.documentElement.style.setProperty(
-        "--aurora-scroll-y",
-        `${offset}px`
-      );
+    const handleVisibilityChange = () => {
+      setIsVisible(document.visibilityState === "visible");
     };
-
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
-  return <div aria-hidden="true" className="site-aurora" />;
+  return (
+    <div
+      aria-hidden="true"
+      className={`site-aurora ${!isVisible ? "site-aurora--paused" : ""}`}
+    >
+      <div className="aurora-sparkle" />
+    </div>
+  );
 }
 

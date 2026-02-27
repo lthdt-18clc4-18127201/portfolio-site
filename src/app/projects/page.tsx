@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ProjectCard } from "@/components/ProjectCard";
+import { projects } from "@/lib/projects";
 
 export const metadata: Metadata = {
   // REPLACE_ME: Update the Projects page title and description for SEO.
@@ -7,40 +8,6 @@ export const metadata: Metadata = {
   description:
     "A selection of projects by Su Pham — focused on clean, useful, and memorable web experiences.",
 };
-
-const projects = [
-  {
-    title: "Project A",
-    summary:
-      // REPLACE_ME: Replace with a real project description.
-      "A concept for a calm, focused dashboard that stays out of the way.",
-  },
-  {
-    title: "Project B",
-    summary:
-      "A marketing site for a small product, built around one clear CTA.",
-  },
-  {
-    title: "Project C",
-    summary:
-      "An exploration of long-form storytelling layouts on the web.",
-  },
-  {
-    title: "Project D",
-    summary:
-      "A compact tool that trims a multi-step workflow into a single screen.",
-  },
-  {
-    title: "Project E",
-    summary:
-      "A concept library of interaction patterns for product teams to borrow.",
-  },
-  {
-    title: "Project F",
-    summary:
-      "A small experiment in pairing bold typography with subtle motion.",
-  },
-];
 
 export default function ProjectsPage() {
   return (
@@ -69,6 +36,7 @@ export default function ProjectsPage() {
               key={project.title}
               title={project.title}
               summary={project.summary}
+              imageSrc={project.imageSrc}
             />
           ))}
         </div>

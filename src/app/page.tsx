@@ -1,69 +1,77 @@
 "use client";
 
+import { useCallback, useMemo } from "react";
 import type { MouseEvent } from "react";
 import Link from "next/link";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { ProjectCard } from "@/components/ProjectCard";
+import { StacksMarquee } from "@/components/StacksMarquee";
+import { projects } from "@/lib/projects";
 
-const projects = [
-  {
-    title: "Project A",
-    summary:
-      // REPLACE_ME: Swap this text with a real project summary.
-      "A placeholder project description focused on a memorable web experience.",
-  },
-  {
-    title: "Project B",
-    summary:
-      "Another sample project exploring clean layouts, motion, and typography.",
-  },
-  {
-    title: "Project C",
-    summary:
-      "A concept piece combining bold visuals with a minimal interaction model.",
-  },
-  {
-    title: "Project D",
-    summary:
-      "A prototype interface designed to keep complex workflows simple and clear.",
-  },
-  {
-    title: "Project E",
-    summary:
-      "An experiment in storytelling-driven product pages with focused CTAs.",
-  },
-  {
-    title: "Project F",
-    summary:
-      "A small utility tool that turns repetitive tasks into a smooth flow.",
-  },
-];
+function throttle<A extends unknown[]>(
+  fn: (...args: A) => void,
+  ms: number,
+): (...args: A) => void {
+  let last = 0;
+  let raf: number | null = null;
+  return (...args: A) => {
+    const now = Date.now();
+    const elapsed = now - last;
+    if (elapsed >= ms) {
+      last = now;
+      fn(...args);
+    } else if (!raf) {
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        last = Date.now();
+        fn(...args);
+      });
+    }
+  };
+}
+
+const THROTTLE_MS = 32;
 
 export default function Home() {
-  const handleHeroMouseMove = (event: MouseEvent<HTMLDivElement>) => {
-    const container = event.currentTarget;
-    const rect = container.getBoundingClientRect();
+  const applyParallax = useMemo(
+    () =>
+      throttle((container: HTMLElement, clientX: number, clientY: number) => {
+        const rect = container.getBoundingClientRect();
+        const relativeX = (clientX - rect.left) / rect.width - 0.5;
+        const relativeY = (clientY - rect.top) / rect.height - 0.5;
+        const maxOffset = 18;
+        const offsetX = relativeX * maxOffset;
+        const offsetY = relativeY * maxOffset;
+        container.style.setProperty(
+          "--hero-bg-translate",
+          `translate3d(${offsetX}px, ${offsetY}px, 0)`,
+        );
+      }, THROTTLE_MS),
+    [],
+  );
 
-    const relativeX = (event.clientX - rect.left) / rect.width - 0.5;
-    const relativeY = (event.clientY - rect.top) / rect.height - 0.5;
+  const handleHeroMouseMove = useCallback(
+    (event: MouseEvent<HTMLDivElement>) => {
+      const container = event.currentTarget;
+      if (container) {
+        applyParallax(container, event.clientX, event.clientY);
+      }
+    },
+    [applyParallax],
+  );
 
-    const maxOffset = 18; // Maximum movement in pixels for subtle parallax
-
-    const offsetX = relativeX * maxOffset;
-    const offsetY = relativeY * maxOffset;
-
-    container.style.setProperty(
-      "--hero-bg-translate",
-      `translate3d(${offsetX}px, ${offsetY}px, 0)`,
-    );
-  };
-
-  const handleHeroMouseLeave = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.style.setProperty(
-      "--hero-bg-translate",
-      "translate3d(0px, 0px, 0)",
-    );
-  };
+  const handleHeroMouseLeave = useCallback(
+    (event: MouseEvent<HTMLDivElement>) => {
+      const container = event.currentTarget;
+      if (container) {
+        container.style.setProperty(
+          "--hero-bg-translate",
+          "translate3d(0px, 0px, 0)",
+        );
+      }
+    },
+    [],
+  );
 
   return (
     <>
@@ -76,9 +84,6 @@ export default function Home() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
           style={{
-            // backgroundImage: 'url("/foreground_bg.webp")',
-            // backgroundSize: "cover",
-            // backgroundPosition: "center",
             transform: "var(--hero-bg-translate, translate3d(0px, 0px, 0))",
             transition: "transform 200ms ease-out",
           }}
@@ -106,7 +111,7 @@ export default function Home() {
               id="subscribe"
               className="rounded-3xl border border-foreground/10 bg-background px-5 py-6 shadow-sm"
             >
-              <h2 className="text-sm font-display tracking-[0.2em]">
+              <h2 className="text-3xl font-display tracking-[0.2em]">
                 Weekly newsletter
               </h2>
               <p className="mt-3 text-xs leading-relaxed text-foreground/80">
@@ -124,44 +129,27 @@ export default function Home() {
 
       <section>
         <div className="mx-auto max-w-5xl px-6 py-10 md:px-8 md:py-12">
-          <div className="space-y-4">
-            <h2 className="text-md font-display tracking-[0.8em]">My Stacks</h2>
-            <p className="max-w-xl text-xs leading-relaxed text-foreground/80">
+          <div className="space-y-4 text-center">
+            <h2 className="text-4xl font-display tracking-[0.18em]">
+              My Stacks
+            </h2>
+            <p className="mx-auto max-w-xl text-sm leading-relaxed text-foreground/80">
               Core tools I use to ship modern, production-ready web experiences.
             </p>
-            <ul className="mt-2 flex flex-wrap gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em]">
-              <li className="rounded-full border border-foreground/20 bg-background px-4 py-1.5 text-foreground/80">
-                Next.js (App Router)
-              </li>
-              <li className="rounded-full border border-foreground/20 bg-background px-4 py-1.5 text-foreground/80">
-                React
-              </li>
-              <li className="rounded-full border border-foreground/20 bg-background px-4 py-1.5 text-foreground/80">
-                TypeScript
-              </li>
-              <li className="rounded-full border border-foreground/20 bg-background px-4 py-1.5 text-foreground/80">
-                Tailwind CSS v4
-              </li>
-              <li className="rounded-full border border-foreground/20 bg-background px-4 py-1.5 text-foreground/80">
-                Modern CSS / Animations
-              </li>
-              <li className="rounded-full border border-foreground/20 bg-background px-4 py-1.5 text-foreground/80">
-                ESLint &amp; Best Practices
-              </li>
-            </ul>
+            <StacksMarquee />
           </div>
         </div>
       </section>
 
       <section>
         <div className="mx-auto max-w-5xl px-6 py-12 md:px-8 md:py-16">
-          <div className="flex items-baseline justify-between gap-4">
-            <h2 className="text-lg font-display tracking-[0.18em]">
-              Selected projects
+          <div className="relative flex items-baseline justify-center gap-4">
+            <h2 className="text-4xl font-display tracking-[0.18em]">
+              Projects I&apos;ve Worked On
             </h2>
             <Link
               href="/projects"
-              className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-accent underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="absolute right-0 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-accent underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               View all
             </Link>
@@ -172,6 +160,7 @@ export default function Home() {
                 key={project.title}
                 title={project.title}
                 summary={project.summary}
+                imageSrc={project.imageSrc}
               />
             ))}
           </div>
