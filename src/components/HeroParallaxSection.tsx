@@ -104,8 +104,8 @@ export function HeroParallaxSection() {
             id="subscribe"
             className="rounded-3xl border border-foreground/10 bg-background px-5 py-6 shadow-sm"
           >
-            <h2 className="text-3xl font-display tracking-[0.2em]">
-              Weekly newsletter
+            <h2 className="section-title text-3xl font-display tracking-[0.2em]">
+              Weekly <span className="section-title-accent">newsletter</span>
             </h2>
             <p className="mt-3 text-xs leading-relaxed text-foreground/80">
               One short email each week with new projects, ideas, and small

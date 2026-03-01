@@ -14,7 +14,7 @@ export function WorkExperienceCard({
   logo,
 }: WorkExperienceCardProps) {
   return (
-    <article className="relative flex min-w-0 flex-col overflow-hidden rounded-3xl text-left shadow-xl shadow-black/30 bg-[#060d1f]">
+    <article className="glass-panel relative flex min-w-0 flex-col overflow-hidden rounded-3xl text-left">
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
         style={{
@@ -34,7 +34,7 @@ export function WorkExperienceCard({
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, transparent 0%, transparent 20%, rgba(6,13,31,0.2) 40%, rgba(6,13,31,0.55) 60%, rgba(6,13,31,0.85) 80%, #060d1f 100%)",
+              "linear-gradient(180deg, transparent 0%, transparent 18%, rgba(5,11,26,0.18) 38%, rgba(5,11,26,0.52) 58%, rgba(5,11,26,0.78) 78%, rgba(5,11,26,0.92) 100%)",
           }}
         />
       </div>

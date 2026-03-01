@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 type SocialPlatform = "facebook" | "zalo" | "linkedin" | "topcv";
 
@@ -80,6 +83,10 @@ export function SocialLinkBlock({
   description,
   qrCodeSrc,
 }: SocialLinkBlockProps) {
+  const [isHoveringBlock, setIsHoveringBlock] = useState(false);
+  const [isHoveringPopover, setIsHoveringPopover] = useState(false);
+  const showQr = isHoveringBlock || isHoveringPopover;
+
   const content = (
     <>
       <span className="flex h-10 w-10 shrink-0 items-center justify-center text-white">
@@ -97,18 +104,22 @@ export function SocialLinkBlock({
 
   if (qrCodeSrc) {
     return (
-      <div className="group relative">
+      <div className="relative">
         <Link
           href={href}
           target="_blank"
           rel="noopener noreferrer"
           className={linkClassName}
+          onMouseEnter={() => setIsHoveringBlock(true)}
+          onMouseLeave={() => setIsHoveringBlock(false)}
         >
           {content}
         </Link>
         <div
-          className="absolute bottom-full left-1/2 z-50 mb-1 w-[216px] -translate-x-1/2 rounded-lg border border-white/20 bg-[#1e293b] p-2 opacity-0 shadow-xl transition-opacity duration-200 group-hover:opacity-100"
+          className={`absolute bottom-full left-1/2 z-50 mb-1 w-[216px] -translate-x-1/2 rounded-lg border border-white/20 bg-[#1e293b] p-2 shadow-xl transition-opacity duration-200 ${showQr ? "opacity-100" : "opacity-0"} ${showQr ? "pointer-events-auto" : "pointer-events-none"}`}
           aria-hidden
+          onMouseEnter={() => setIsHoveringPopover(true)}
+          onMouseLeave={() => setIsHoveringPopover(false)}
         >
           <Image
             src={qrCodeSrc}

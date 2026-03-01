@@ -9,9 +9,9 @@ export function Footer() {
           <section aria-labelledby="footer-newsletter-heading">
             <h2
               id="footer-newsletter-heading"
-              className="text-sm font-display tracking-[0.2em]"
+              className="section-title text-sm font-display tracking-[0.2em]"
             >
-              Weekly newsletter
+              Weekly <span className="section-title-accent">newsletter</span>
             </h2>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-foreground/80">
               {/* REPLACE_ME: Update footer newsletter description. */}
