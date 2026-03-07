@@ -10,7 +10,6 @@ type NewsletterFormProps = {
 };
 
 function isValidEmail(value: string) {
-  // Basic email format validation — REPLACE_ME with stricter rules if needed.
   return /\S+@\S+\.\S+/.test(value);
 }
 
@@ -37,13 +36,7 @@ export function NewsletterForm({
     }
 
     setStatus("submitting");
-
-    // REPLACE_ME: Connect to your real newsletter provider or backend here.
-    // For example, call a serverless function:
-    // const response = await fetch("/api/subscribe", { method: "POST", body: JSON.stringify({ email }) });
-    // Handle success / error based on the response instead of this stub.
     await new Promise((resolve) => setTimeout(resolve, 600));
-
     setStatus("success");
   }
 
@@ -95,12 +88,10 @@ export function NewsletterForm({
             className="mt-2 text-xs text-foreground/80"
             role="status"
           >
-            {/* REPLACE_ME: Refine the success copy if needed. */}
             Thanks — we&apos;ll be in touch.
           </p>
         )}
         <p className="mt-2 text-[0.65rem] leading-relaxed text-foreground/70">
-          {/* REPLACE_ME: Update or localize this privacy note. */}
           We only use your email for the weekly newsletter. No spam. Unsubscribe
           anytime.
         </p>

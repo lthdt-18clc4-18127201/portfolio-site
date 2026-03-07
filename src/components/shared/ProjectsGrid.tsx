@@ -1,7 +1,5 @@
-import { ProjectCard } from "@/components/ProjectCard";
-import type { projects as projectsType } from "@/lib/projects";
-
-type Project = (typeof projectsType)[number];
+import { ProjectCard } from "@/components/ui/ProjectCard";
+import type { Project } from "@/types";
 
 type ProjectsGridProps = {
   projects: readonly Project[];

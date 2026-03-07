@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import "@/styles/globals.css";
+import { Header } from "@/components/shared/Header";
+import { Footer } from "@/components/shared/Footer";
 import { lazyComponent } from "@/lib/lazy";
 
 const AuroraBackground = lazyComponent(
   () =>
-    import("@/components/AuroraBackground").then((m) => ({
+    import("@/components/shared/AuroraBackground").then((m) => ({
       default: m.AuroraBackground,
     })),
   { ssr: false, noFallback: true },

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NewsletterForm } from "@/components/NewsletterForm";
+import { NewsletterForm } from "@/components/shared/NewsletterForm";
 
 export function Footer() {
   return (
@@ -14,7 +14,6 @@ export function Footer() {
               Weekly <span className="section-title-accent">newsletter</span>
             </h2>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-foreground/80">
-              {/* REPLACE_ME: Update footer newsletter description. */}
               Short, focused notes on design, development, and projects —
               delivered once a week.
             </p>
@@ -24,10 +23,7 @@ export function Footer() {
           </section>
 
           <section className="space-y-4 text-xs text-foreground/70">
-            <p>
-              {/* REPLACE_ME: Update footer copyright or legal text. */}
-              © 2026 Su Pham. All rights reserved.
-            </p>
+            <p>© 2026 Su Pham. All rights reserved.</p>
             <nav aria-label="Footer">
               <ul className="flex flex-wrap gap-3">
                 <li>
@@ -54,4 +50,3 @@ export function Footer() {
     </footer>
   );
 }
-

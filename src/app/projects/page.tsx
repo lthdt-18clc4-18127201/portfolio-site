@@ -4,7 +4,7 @@ import { lazyComponent } from "@/lib/lazy";
 
 const ProjectsGrid = lazyComponent(
   () =>
-    import("@/components/ProjectsGrid").then((m) => ({
+    import("@/components/shared/ProjectsGrid").then((m) => ({
       default: m.ProjectsGrid,
     })),
   { ssr: true, minHeight: "400px" },

@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { LazyFallback } from "@/components/LazyFallback";
+import { LazyFallback } from "@/components/ui/LazyFallback";
 
 type DynamicOptions = {
   ssr?: boolean;

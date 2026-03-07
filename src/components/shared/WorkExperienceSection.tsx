@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { workExperiences } from "@/lib/work-experience";
-import { WorkExperienceCard } from "./WorkExperienceCard";
+import { WorkExperienceCard } from "@/components/ui/WorkExperienceCard";
 
 export function WorkExperienceSection() {
   const [activeIndex, setActiveIndex] = useState(0);

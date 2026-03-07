@@ -1,12 +1,7 @@
 "use client";
 
 import Link from "next/link";
-
-const navItems = [
-  { href: "/#about", label: "About" },
-  { href: "/#projects", label: "Projects" },
-  { href: "/#subscribe", label: "Subscribe" },
-];
+import { NAV_ITEMS } from "@/lib/constants";
 
 export function Header() {
   return (
@@ -23,7 +18,7 @@ export function Header() {
 
           <nav aria-label="Main" className="flex-1">
             <ul className="flex items-center justify-center gap-6 text-[0.7rem] font-semibold tracking-[0.22em]">
-              {navItems.map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}

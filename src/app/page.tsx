@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { HeroParallaxSection } from "@/components/HeroParallaxSection";
-import { ProjectsSlider } from "@/components/ProjectsSlider";
-import { ScrollFadeSection } from "@/components/ScrollFadeSection";
+import { HeroParallaxSection } from "@/components/shared/HeroParallaxSection";
+import { ProjectsSlider } from "@/components/shared/ProjectsSlider";
+import { ScrollFadeSection } from "@/components/ui/ScrollFadeSection";
 import { projects } from "@/lib/projects";
 import { lazyComponent } from "@/lib/lazy";
 
 const StacksMarquee = lazyComponent(
   () =>
-    import("@/components/StacksMarquee").then((m) => ({
+    import("@/components/shared/StacksMarquee").then((m) => ({
       default: m.StacksMarquee,
     })),
   { ssr: true, minHeight: "120px" },
@@ -15,7 +15,7 @@ const StacksMarquee = lazyComponent(
 
 const WorkExperienceSection = lazyComponent(
   () =>
-    import("@/components/WorkExperienceSection").then((m) => ({
+    import("@/components/shared/WorkExperienceSection").then((m) => ({
       default: m.WorkExperienceSection,
     })),
   { ssr: true, minHeight: "320px" },

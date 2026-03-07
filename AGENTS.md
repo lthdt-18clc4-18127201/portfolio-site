@@ -5,8 +5,8 @@ This document explains how AI agents (like Cursor's) should work in this project
 ### Project Context
 
 - **Purpose**: Personal portfolio site for Su Pham.
-- **Stack**: Next.js (App Router), TypeScript, React, Tailwind/CSS modules (see `src/app/globals.css`).
-- **Entry points**: `src/app/page.tsx`, `src/app/about/page.tsx`, `src/app/projects/page.tsx`.
+- **Stack**: Next.js (App Router), TypeScript, React, Tailwind/CSS modules (see `src/styles/globals.css`).
+- **Entry points**: `src/app/page.tsx`, `src/app/about/page.tsx`, `src/app/projects/page.tsx`, `src/app/(auth)/dashboard/page.tsx`.
 
 ### How Agents Should Work Here
 
@@ -24,12 +24,12 @@ This document explains how AI agents (like Cursor's) should work in this project
 
 When changing behavior:
 
-- **For UI changes**: Check the relevant page under `src/app/**/page.tsx` and any shared components in `src/components/`.
-- **For layout changes**: Update `src/app/layout.tsx` and `src/app/globals.css` carefully to avoid breaking other pages.
+- **For UI changes**: Check the relevant page under `src/app/**/page.tsx` and components in `src/components/ui/` and `src/components/shared/`.
+- **For layout changes**: Update `src/app/layout.tsx` and `src/styles/globals.css` carefully to avoid breaking other pages.
 
 ### Code & Content Conventions
 
-- **Components**: Prefer small, composable React components in `src/components/` (e.g. `Header`, `Footer`, `ProjectCard`, `NewsletterForm`).
+- **Components**: Prefer small, composable React components. Use `src/components/ui/` for reusable UI primitives (e.g. `ProjectCard`, `LazyFallback`) and `src/components/shared/` for layout/shared components (e.g. `Header`, `Footer`, `NewsletterForm`).
 - **Styling**: Reuse existing styles and design tokens where possible instead of inventing new patterns.
 - **Copywriting**: Keep portfolio copy professional, concise, and aligned with Su Pham's personal brand.
 - **Lazy loading**: Use `lazyComponent()` from `@/lib/lazy` for below-the-fold or heavy components so code stays split and the pattern is consistent. Use `LazyFallback` (optionally via `Suspense`) when you need a custom fallback. Images: keep using Next.js `Image` with `priority` only for above-the-fold assets.

@@ -3,8 +3,8 @@
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { useCallback, useMemo, useRef } from "react";
 import type { MouseEvent } from "react";
-import { NewsletterForm } from "@/components/NewsletterForm";
-import { SocialLinkBlock } from "@/components/SocialLinkBlock";
+import { NewsletterForm } from "@/components/shared/NewsletterForm";
+import { SocialLinkBlock } from "@/components/shared/SocialLinkBlock";
 
 function throttle<A extends unknown[]>(
   fn: (...args: A) => void,
