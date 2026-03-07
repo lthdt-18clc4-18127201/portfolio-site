@@ -24,8 +24,8 @@ export default function AboutPage() {
           About Su Pham
         </p>
         <h1 className="text-4xl leading-tight tracking-[0.14em] md:text-5xl">
-          {/* REPLACE_ME: Update About headline. */}
-          I build things people remember.
+          {/* REPLACE_ME: Update About headline. */}I build things people
+          remember.
         </h1>
         <p className="text-base leading-relaxed text-foreground/80 md:text-lg">
           {/* REPLACE_ME: Replace with a real short bio. */}
@@ -65,4 +65,3 @@ export default function AboutPage() {
     </div>
   );
 }
-

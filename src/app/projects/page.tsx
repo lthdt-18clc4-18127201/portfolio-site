@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
-import { ProjectCard } from "@/components/ProjectCard";
 import { projects } from "@/lib/projects";
+import { lazyComponent } from "@/lib/lazy";
+
+const ProjectsGrid = lazyComponent(
+  () =>
+    import("@/components/ProjectsGrid").then((m) => ({
+      default: m.ProjectsGrid,
+    })),
+  { ssr: true, minHeight: "400px" },
+);
 
 export const metadata: Metadata = {
   // REPLACE_ME: Update the Projects page title and description for SEO.
@@ -30,17 +38,7 @@ export default function ProjectsPage() {
       </header>
 
       <section className="mt-10">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.title}
-              title={project.title}
-              role={project.role}
-              highlights={project.highlights}
-              imageSrc={project.imageSrc}
-            />
-          ))}
-        </div>
+        <ProjectsGrid projects={projects} />
       </section>
     </div>
   );

@@ -1,16 +1,24 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { HeroParallaxSection } from "@/components/HeroParallaxSection";
-import { ProjectCard } from "@/components/ProjectCard";
-import { WorkExperienceSection } from "@/components/WorkExperienceSection";
+import { ProjectsSlider } from "@/components/ProjectsSlider";
+import { ScrollFadeSection } from "@/components/ScrollFadeSection";
 import { projects } from "@/lib/projects";
+import { lazyComponent } from "@/lib/lazy";
 
-const StacksMarquee = dynamic(
+const StacksMarquee = lazyComponent(
   () =>
-    import("@/components/StacksMarquee").then((mod) => ({
-      default: mod.StacksMarquee,
+    import("@/components/StacksMarquee").then((m) => ({
+      default: m.StacksMarquee,
     })),
-  { ssr: true },
+  { ssr: true, minHeight: "120px" },
+);
+
+const WorkExperienceSection = lazyComponent(
+  () =>
+    import("@/components/WorkExperienceSection").then((m) => ({
+      default: m.WorkExperienceSection,
+    })),
+  { ssr: true, minHeight: "320px" },
 );
 
 export default function Home() {
@@ -18,7 +26,7 @@ export default function Home() {
     <>
       <HeroParallaxSection />
 
-      <section id="stacks">
+      <ScrollFadeSection id="stacks">
         <div className="mx-auto max-w-5xl px-6 py-10 md:px-8 md:py-12">
           <div className="space-y-4 text-center">
             <h2 className="section-title text-4xl font-display tracking-[0.18em]">
@@ -30,7 +38,7 @@ export default function Home() {
             <StacksMarquee />
           </div>
         </div>
-      </section>
+      </ScrollFadeSection>
 
       <section id="projects" className="content-visibility-auto">
         <div className="mx-auto max-w-5xl px-6 py-12 md:px-8 md:py-16">
@@ -46,17 +54,8 @@ export default function Home() {
               View all
             </Link>
           </div>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, index) => (
-              <ProjectCard
-                key={project.title}
-                title={project.title}
-                role={project.role}
-                highlights={project.highlights}
-                imageSrc={project.imageSrc}
-                priority={index === 0}
-              />
-            ))}
+          <div className="mt-8">
+            <ProjectsSlider projects={projects} />
           </div>
         </div>
       </section>
@@ -101,8 +100,8 @@ export default function Home() {
                   aria-hidden="true"
                 />
                 <span>
-                  Balances visual design, UX, and implementation for
-                  end-to-end projects.
+                  Balances visual design, UX, and implementation for end-to-end
+                  projects.
                 </span>
               </li>
               <li className="flex gap-3">

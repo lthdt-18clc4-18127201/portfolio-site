@@ -2,7 +2,15 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { AuroraBackground } from "@/components/AuroraBackground";
+import { lazyComponent } from "@/lib/lazy";
+
+const AuroraBackground = lazyComponent(
+  () =>
+    import("@/components/AuroraBackground").then((m) => ({
+      default: m.AuroraBackground,
+    })),
+  { ssr: false, noFallback: true },
+);
 
 export const metadata: Metadata = {
   // REPLACE_ME: Update the default SEO title for the site.

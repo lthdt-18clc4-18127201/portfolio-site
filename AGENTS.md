@@ -32,6 +32,7 @@ When changing behavior:
 - **Components**: Prefer small, composable React components in `src/components/` (e.g. `Header`, `Footer`, `ProjectCard`, `NewsletterForm`).
 - **Styling**: Reuse existing styles and design tokens where possible instead of inventing new patterns.
 - **Copywriting**: Keep portfolio copy professional, concise, and aligned with Su Pham's personal brand.
+- **Lazy loading**: Use `lazyComponent()` from `@/lib/lazy` for below-the-fold or heavy components so code stays split and the pattern is consistent. Use `LazyFallback` (optionally via `Suspense`) when you need a custom fallback. Images: keep using Next.js `Image` with `priority` only for above-the-fold assets.
 
 ### Agent Behavior Expectations
 

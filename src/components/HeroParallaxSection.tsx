@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { useCallback, useMemo, useRef } from "react";
 import type { MouseEvent } from "react";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { SocialLinkBlock } from "@/components/SocialLinkBlock";
@@ -30,6 +31,17 @@ function throttle<A extends unknown[]>(
 const THROTTLE_MS = 32;
 
 export function HeroParallaxSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const smoothScrollProgress = useSpring(scrollYProgress, {
+    stiffness: 160,
+    damping: 28,
+    mass: 0.2,
+  });
+
   const applyParallax = useMemo(
     () =>
       throttle((container: HTMLElement, clientX: number, clientY: number) => {
@@ -48,7 +60,7 @@ export function HeroParallaxSection() {
   );
 
   const handleHeroMouseMove = useCallback(
-    (event: MouseEvent<HTMLDivElement>) => {
+    (event: MouseEvent<HTMLElement>) => {
       const container = event.currentTarget;
       if (container) {
         applyParallax(container, event.clientX, event.clientY);
@@ -57,21 +69,32 @@ export function HeroParallaxSection() {
     [applyParallax],
   );
 
-  const handleHeroMouseLeave = useCallback(
-    (event: MouseEvent<HTMLDivElement>) => {
-      const container = event.currentTarget;
-      if (container) {
-        container.style.setProperty(
-          "--hero-bg-translate",
-          "translate3d(0px, 0px, 0)",
-        );
-      }
-    },
-    [],
+  const handleHeroMouseLeave = useCallback((event: MouseEvent<HTMLElement>) => {
+    const container = event.currentTarget;
+    if (container) {
+      container.style.setProperty(
+        "--hero-bg-translate",
+        "translate3d(0px, 0px, 0)",
+      );
+    }
+  }, []);
+
+  const leftX = useTransform(smoothScrollProgress, [0, 1], [0, -180]);
+  const rightX = useTransform(smoothScrollProgress, [0, 1], [0, 180]);
+  const contentOpacity = useTransform(
+    smoothScrollProgress,
+    [0, 0.7, 1],
+    [1, 0.45, 0],
+  );
+  const socialOpacity = useTransform(
+    smoothScrollProgress,
+    [0, 0.55, 1],
+    [1, 0.35, 0],
   );
 
   return (
     <section
+      ref={sectionRef}
       className="relative overflow-hidden"
       onMouseMove={handleHeroMouseMove}
       onMouseLeave={handleHeroMouseLeave}
@@ -86,7 +109,14 @@ export function HeroParallaxSection() {
       />
 
       <div className="relative mx-auto flex max-w-5xl flex-col gap-10 px-6 py-16 md:flex-row md:items-center md:gap-16 md:px-8 md:py-24">
-        <div className="flex-1 space-y-6">
+        <motion.div
+          className="flex-1 space-y-6 transition-[transform,opacity] duration-150 ease-out"
+          style={{
+            x: leftX,
+            opacity: contentOpacity,
+            willChange: "transform, opacity",
+          }}
+        >
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-foreground/60">
             Designer &amp; developer
           </p>
@@ -94,12 +124,19 @@ export function HeroParallaxSection() {
             Hi, I&apos;m Su Pham.
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
-            Designer &amp; developer. I make clean, useful web experiences
-            that people remember.
+            Designer &amp; developer. I make clean, useful web experiences that
+            people remember.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="w-full max-w-md">
+        <motion.div
+          className="w-full max-w-md transition-[transform,opacity] duration-150 ease-out"
+          style={{
+            x: rightX,
+            opacity: contentOpacity,
+            willChange: "transform, opacity",
+          }}
+        >
           <div
             id="subscribe"
             className="rounded-3xl border border-foreground/10 bg-background px-5 py-6 shadow-sm"
@@ -115,10 +152,13 @@ export function HeroParallaxSection() {
               <NewsletterForm idSuffix="hero" layout="stacked" />
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      <div className="relative mx-auto flex max-w-5xl flex-wrap justify-center gap-4 px-6 pb-16 md:px-8 md:pb-24">
+      <motion.div
+        className="relative mx-auto flex max-w-5xl flex-wrap justify-center gap-4 px-6 pb-16 transition-opacity duration-150 ease-out md:px-8 md:pb-24"
+        style={{ opacity: socialOpacity, willChange: "opacity" }}
+      >
         <SocialLinkBlock
           platform="facebook"
           href="https://www.facebook.com/supham1501"
@@ -141,10 +181,10 @@ export function HeroParallaxSection() {
         <SocialLinkBlock
           platform="topcv"
           href="/cv/Pham-Tan-Su-CV.pdf"
-          label="Top CV"
+          label="My CV"
           description="Download Resume"
         />
-      </div>
+      </motion.div>
     </section>
   );
 }
