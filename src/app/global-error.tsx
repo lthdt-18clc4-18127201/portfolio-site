@@ -23,8 +23,8 @@ export default function GlobalError({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#050b1a",
-          color: "#f8fafc",
+          backgroundColor: "#1a0a2e",
+          color: "#ffffff",
           fontFamily: "system-ui, sans-serif",
         }}
       >
@@ -44,8 +44,8 @@ export default function GlobalError({
               fontWeight: 600,
               textTransform: "uppercase",
               letterSpacing: "0.15em",
-              backgroundColor: "#c6007e",
-              color: "#050b1a",
+              backgroundColor: "#b54aff",
+              color: "#ffffff",
               border: "none",
               borderRadius: "9999px",
               cursor: "pointer",

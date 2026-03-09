@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  /* Core palette */
-  --background: #050b1a;
-  --foreground: #f8fafc;
-  --accent: #c6007e;
+  /* Core palette – dark purple + electric purple accents */
+  --background: #1a0a2e;
+  --foreground: #ffffff;
+  --accent: #b54aff;
 
-  /* Aurora palette (match screenshot: teal/green + cyan + deep blue) */
-  --aurora-teal: #00f5d4;
-  --aurora-green: #33ff9a;
-  --aurora-cyan: #42b6ff;
-  --aurora-deep: #061634;
+  /* Aurora palette – purple/magenta glows */
+  --aurora-purple: #b54aff;
+  --aurora-magenta: #d946ef;
+  --aurora-violet: #a78bfa;
+  --aurora-deep: #1c002b;
 
   /* Typography */
   --font-body:
@@ -71,11 +71,11 @@ main {
   z-index: -1;
   background: linear-gradient(
     180deg,
-    #020617 0%,
+    #0f0518 0%,
     var(--background) 55%,
-    #020617 100%
+    #0f0518 100%
   );
-  filter: saturate(1.2) contrast(1.05);
+  filter: saturate(1.3) contrast(1.05);
 }
 
 .site-aurora::before {
@@ -85,22 +85,22 @@ main {
   background:
     radial-gradient(
       1200px 700px at 55% 10%,
-      color-mix(in oklab, var(--aurora-teal) 72%, transparent),
+      color-mix(in oklab, var(--aurora-purple) 65%, transparent),
       transparent 60%
     ),
     radial-gradient(
       900px 500px at 30% 18%,
-      color-mix(in oklab, var(--aurora-green) 52%, transparent),
+      color-mix(in oklab, var(--aurora-magenta) 48%, transparent),
       transparent 60%
     ),
     radial-gradient(
       1000px 700px at 70% 40%,
-      color-mix(in oklab, var(--aurora-cyan) 48%, transparent),
+      color-mix(in oklab, var(--aurora-violet) 45%, transparent),
       transparent 62%
     ),
     radial-gradient(
       1400px 900px at 50% 75%,
-      color-mix(in oklab, var(--aurora-deep) 85%, transparent),
+      color-mix(in oklab, var(--aurora-deep) 80%, transparent),
       transparent 62%
     );
   filter: blur(10px);
@@ -115,21 +115,21 @@ main {
   background:
     radial-gradient(
       700px 480px at 20% 30%,
-      color-mix(in oklab, var(--aurora-teal) 34%, transparent),
+      color-mix(in oklab, var(--aurora-purple) 38%, transparent),
       transparent 62%
     ),
     radial-gradient(
       650px 450px at 75% 25%,
-      color-mix(in oklab, var(--aurora-cyan) 32%, transparent),
+      color-mix(in oklab, var(--aurora-violet) 35%, transparent),
       transparent 62%
     ),
     radial-gradient(
       700px 520px at 55% 70%,
-      color-mix(in oklab, var(--aurora-green) 26%, transparent),
+      color-mix(in oklab, var(--aurora-magenta) 30%, transparent),
       transparent 62%
     );
   filter: blur(12px);
-  opacity: 0.55;
+  opacity: 0.6;
   transform: translate3d(0, 0, 0);
   animation: aurora-flow 34s ease-in-out infinite reverse;
   animation-delay: -10s;
@@ -146,20 +146,20 @@ main {
   background:
     radial-gradient(
       1px 1px at 20% 30%,
-      rgba(255, 255, 255, 0.24),
+      rgba(255, 255, 255, 0.28),
       transparent 60%
     ),
     radial-gradient(
       1px 1px at 70% 45%,
-      rgba(255, 255, 255, 0.18),
+      rgba(181, 74, 255, 0.2),
       transparent 60%
     ),
     radial-gradient(
       1px 1px at 45% 70%,
-      rgba(255, 255, 255, 0.16),
+      rgba(255, 255, 255, 0.2),
       transparent 60%
     );
-  opacity: 0.22;
+  opacity: 0.28;
   mix-blend-mode: overlay;
   pointer-events: none;
 }
@@ -181,20 +181,21 @@ main {
 }
 
 .glass-panel {
-  /* Frosted glass, but opaque enough to avoid showing stacked cards behind */
-  background: rgba(5, 11, 26, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  /* Frosted glass with purple tint */
+  background: rgba(28, 0, 43, 0.78);
+  border: 1px solid rgba(181, 74, 255, 0.25);
   backdrop-filter: blur(12px) saturate(1.2);
   -webkit-backdrop-filter: blur(12px) saturate(1.2);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.06) inset,
-    0 10px 30px rgba(0, 0, 0, 0.22);
+    0 1px 0 rgba(181, 74, 255, 0.08) inset,
+    0 0 24px rgba(181, 74, 255, 0.12),
+    0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
 .glass-bar {
-  background: color-mix(in oklab, rgba(5, 11, 26, 0.62) 80%, transparent);
+  background: color-mix(in oklab, rgba(28, 0, 43, 0.7) 80%, transparent);
   border-bottom: 1px solid
-    color-mix(in oklab, rgba(255, 255, 255, 0.16) 60%, transparent);
+    color-mix(in oklab, rgba(181, 74, 255, 0.2) 60%, transparent);
   backdrop-filter: blur(10px) saturate(1.1);
   -webkit-backdrop-filter: blur(10px) saturate(1.1);
 }
@@ -203,20 +204,20 @@ main {
   color: var(--foreground);
   text-shadow:
     0 10px 30px rgba(0, 0, 0, 0.45),
-    0 0 18px color-mix(in oklab, var(--aurora-cyan) 28%, transparent);
+    0 0 20px color-mix(in oklab, var(--aurora-purple) 35%, transparent);
 }
 
 .section-title-accent {
   background: linear-gradient(
     90deg,
-    var(--aurora-green) 0%,
-    var(--aurora-teal) 45%,
-    var(--aurora-cyan) 100%
+    var(--aurora-magenta) 0%,
+    var(--aurora-purple) 45%,
+    var(--aurora-violet) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 20px color-mix(in oklab, var(--aurora-teal) 35%, transparent);
+  text-shadow: 0 0 24px color-mix(in oklab, var(--aurora-purple) 40%, transparent);
 }
 
 .reveal {
@@ -300,6 +301,10 @@ main {
 .slider-card-enter {
   animation: slider-card-enter 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     forwards;
+}
+
+.stacks-section {
+  background-color: rgba(44, 26, 64, 0.5);
 }
 
 @media (prefers-reduced-motion: reduce) {

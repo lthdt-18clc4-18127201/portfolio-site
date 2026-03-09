@@ -19,6 +19,7 @@ This document explains how AI agents (like Cursor's) should work in this project
 ### Local Development & Commands
 
 - **Start dev server**: `npm run dev`
+- **Fresh start** (after reopening project or when dev is slow): `npm run dev:fresh` — clears `.next` and `.turbo` cache, then starts dev.
 - **Build for production**: `npm run build`
 - **Lint**: `npm run lint` (and use Cursor lints on recently edited files to keep the repo clean).
 
@@ -41,4 +42,3 @@ When changing behavior:
 - **Respect Git history**: Do not create commits or push branches unless the user explicitly asks.
 
 This file is the single source of truth for how AI agents should behave in this repository; update it when project conventions change.
-

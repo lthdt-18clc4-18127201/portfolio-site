@@ -16,10 +16,10 @@ export function WorkExperienceCard({
   return (
     <article className="glass-panel relative flex min-w-0 flex-col overflow-hidden rounded-3xl text-left">
       <div
-        className="pointer-events-none absolute inset-0 opacity-30"
+        className="pointer-events-none absolute inset-0 opacity-35"
         style={{
           background:
-            "radial-gradient(ellipse 120% 80% at 20% 10%, rgba(0,245,212,0.35), transparent 60%), radial-gradient(ellipse 100% 70% at 80% 30%, rgba(66,182,255,0.3), transparent 55%), radial-gradient(ellipse 90% 60% at 50% 80%, rgba(51,255,154,0.2), transparent 50%)",
+            "radial-gradient(ellipse 120% 80% at 20% 10%, rgba(181,74,255,0.4), transparent 60%), radial-gradient(ellipse 100% 70% at 80% 30%, rgba(217,70,239,0.35), transparent 55%), radial-gradient(ellipse 90% 60% at 50% 80%, rgba(167,139,250,0.25), transparent 50%)",
           animation: "card-aurora 8s ease-in-out infinite",
         }}
       />
@@ -34,7 +34,7 @@ export function WorkExperienceCard({
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, transparent 0%, transparent 18%, rgba(5,11,26,0.18) 38%, rgba(5,11,26,0.52) 58%, rgba(5,11,26,0.78) 78%, rgba(5,11,26,0.92) 100%)",
+              "linear-gradient(180deg, transparent 0%, transparent 18%, rgba(28,0,43,0.2) 38%, rgba(28,0,43,0.55) 58%, rgba(28,0,43,0.82) 78%, rgba(28,0,43,0.95) 100%)",
           }}
         />
       </div>
@@ -53,7 +53,7 @@ export function WorkExperienceCard({
         </div>
 
         <div className="mt-1">
-          <span className="inline-block rounded-full bg-white px-5 py-2 text-xs font-semibold text-[#060d1f]">
+          <span className="inline-block rounded-full bg-accent px-5 py-2 text-xs font-semibold text-white">
             View details
           </span>
         </div>

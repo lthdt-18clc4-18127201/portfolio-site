@@ -5,12 +5,12 @@ import { ScrollFadeSection } from "@/components/ui/ScrollFadeSection";
 import { projects } from "@/lib/projects";
 import { lazyComponent } from "@/lib/lazy";
 
-const StacksMarquee = lazyComponent(
+const StacksSection = lazyComponent(
   () =>
-    import("@/components/shared/StacksMarquee").then((m) => ({
-      default: m.StacksMarquee,
+    import("@/components/shared/StacksSection").then((m) => ({
+      default: m.StacksSection,
     })),
-  { ssr: true, minHeight: "120px" },
+  { ssr: true, minHeight: "280px" },
 );
 
 const WorkExperienceSection = lazyComponent(
@@ -27,17 +27,7 @@ export default function Home() {
       <HeroParallaxSection />
 
       <ScrollFadeSection id="stacks">
-        <div className="mx-auto max-w-5xl px-6 py-10 md:px-8 md:py-12">
-          <div className="space-y-4 text-center">
-            <h2 className="section-title text-4xl font-display tracking-[0.18em]">
-              My <span className="section-title-accent">Stacks</span>
-            </h2>
-            <p className="mx-auto max-w-xl text-sm leading-relaxed text-foreground/80">
-              Core tools I use to ship modern, production-ready web experiences.
-            </p>
-            <StacksMarquee />
-          </div>
-        </div>
+        <StacksSection />
       </ScrollFadeSection>
 
       <section id="projects" className="content-visibility-auto">

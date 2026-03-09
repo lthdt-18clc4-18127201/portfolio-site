@@ -100,7 +100,7 @@ export function SocialLinkBlock({
   );
 
   const linkClassName =
-    "flex items-center gap-4 rounded-xl bg-[#1e293b] px-5 py-4 text-white transition-colors hover:bg-[#334155] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+    "flex items-center gap-4 rounded-xl bg-[#2d1b4e] px-5 py-4 text-white transition-colors hover:bg-[#3d2a5e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
   if (qrCodeSrc) {
     return (
@@ -116,7 +116,7 @@ export function SocialLinkBlock({
           {content}
         </Link>
         <div
-          className={`absolute bottom-full left-1/2 z-50 mb-1 w-[216px] -translate-x-1/2 rounded-lg border border-white/20 bg-[#1e293b] p-2 shadow-xl transition-opacity duration-200 ${showQr ? "opacity-100" : "opacity-0"} ${showQr ? "pointer-events-auto" : "pointer-events-none"}`}
+          className={`absolute bottom-full left-1/2 z-50 mb-1 w-[216px] -translate-x-1/2 rounded-lg border border-white/20 bg-[#2d1b4e] p-2 shadow-xl transition-opacity duration-200 ${showQr ? "opacity-100" : "opacity-0"} ${showQr ? "pointer-events-auto" : "pointer-events-none"}`}
           aria-hidden
           onMouseEnter={() => setIsHoveringPopover(true)}
           onMouseLeave={() => setIsHoveringPopover(false)}
