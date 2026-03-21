@@ -1,9 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { useCallback, useMemo, useRef } from "react";
 import type { MouseEvent } from "react";
-import { NewsletterForm } from "@/components/shared/NewsletterForm";
 import { SocialLinkBlock } from "@/components/shared/SocialLinkBlock";
 
 function throttle<A extends unknown[]>(
@@ -130,7 +130,7 @@ export function HeroParallaxSection() {
         </motion.div>
 
         <motion.div
-          className="w-full max-w-md transition-[transform,opacity] duration-150 ease-out"
+          className="flex w-full max-w-md justify-center transition-[transform,opacity] duration-150 ease-out"
           style={{
             x: rightX,
             opacity: contentOpacity,
@@ -138,18 +138,31 @@ export function HeroParallaxSection() {
           }}
         >
           <div
-            id="subscribe"
-            className="rounded-3xl border border-foreground/10 bg-background px-5 py-6 shadow-sm"
+            className="relative rounded-full p-1"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(167,139,250,0.5) 50%, rgba(181,74,255,0.4) 100%)",
+              boxShadow:
+                "0 0 20px rgba(255,255,255,0.3), 0 0 40px rgba(181,74,255,0.25)",
+            }}
           >
-            <h2 className="section-title text-3xl font-display tracking-[0.2em]">
-              Weekly <span className="section-title-accent">newsletter</span>
-            </h2>
-            <p className="mt-3 text-xs leading-relaxed text-foreground/80">
-              One short email each week with new projects, ideas, and small
-              experiments.
-            </p>
-            <div className="mt-4">
-              <NewsletterForm idSuffix="hero" layout="stacked" />
+            <div className="relative overflow-hidden rounded-full">
+              <Image
+                src="/my-portrait.png"
+                alt="Su Pham"
+                width={320}
+                height={320}
+                priority
+                className="aspect-square object-cover"
+                sizes="(max-width: 768px) 240px, 320px"
+              />
+              <div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background:
+                    "linear-gradient(180deg, transparent 0%, rgba(28,0,43,0.3) 40%, rgba(181,74,255,0.15) 100%)",
+                }}
+              />
             </div>
           </div>
         </motion.div>
