@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ROW_1 = [
   { slug: "figma", name: "Figma" },
@@ -72,6 +72,11 @@ export function StacksSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
   const prefersReducedMotion = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduceMotion =
+    mounted && prefersReducedMotion === true;
+  const isInViewForAnimate = mounted && isInView;
 
   return (
     <section className="stacks-section relative mx-auto max-w-3xl rounded-2xl px-6 py-12 md:px-8 md:py-16">
@@ -89,9 +94,13 @@ export function StacksSection() {
           ref={containerRef}
           className="relative mx-auto flex flex-col items-center gap-8 pt-4"
           variants={containerVariants}
-          initial={prefersReducedMotion ? "visible" : "hidden"}
+          initial={reduceMotion ? "visible" : "hidden"}
           animate={
-            prefersReducedMotion ? "visible" : isInView ? "visible" : "hidden"
+            reduceMotion
+              ? "visible"
+              : isInViewForAnimate
+                ? "visible"
+                : "hidden"
           }
         >
           <div className="flex flex-wrap justify-center gap-6 sm:gap-8">

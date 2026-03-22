@@ -7,7 +7,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 
 type ScrollFadeSectionProps = PropsWithChildren<
@@ -21,6 +21,10 @@ export function ScrollFadeSection({
 }: ScrollFadeSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduceMotion =
+    mounted && prefersReducedMotion === true;
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -43,7 +47,7 @@ export function ScrollFadeSection({
       ref={sectionRef}
       className={className}
       style={
-        prefersReducedMotion
+        reduceMotion
           ? undefined
           : { opacity, y, willChange: "transform, opacity" }
       }

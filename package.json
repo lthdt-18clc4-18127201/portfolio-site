@@ -6,7 +6,9 @@
     "dev": "next dev -p 3000",
     "start": "next start",
     "lint": "eslint",
-    "clean": "rm -rf .next .turbo"
+    "build": "next build",
+    "clean": "rm -rf .next .turbo",
+    "dev:fresh": "npm run clean && npm run dev"
   },
   "dependencies": {
     "motion": "^12.35.0",
